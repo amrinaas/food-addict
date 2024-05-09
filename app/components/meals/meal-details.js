@@ -5,14 +5,14 @@ import classes from './meal-details.module.css';
 
 export default function MealDetails({ image, title, slug, summary, creator }) {
   return (
-    <article>
+    <article className={classes.meal}>
       <header>
         <div className={classes.image}>
-          <Image src={image} fill alt={title} />
+          <Image src={image} alt={title} fill />
         </div>
         <div className={classes.headerText}>
           <h2>{title}</h2>
-          <p>{creator}</p>
+          <p>by {creator}</p>
         </div>
       </header>
       <div className={classes.content}>
