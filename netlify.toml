@@ -1,2 +1,2 @@
 [functions]
-external_node_modules = [“@libsql/client”]
+external_node_modules = ["@libsql/client"]
