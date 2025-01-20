@@ -1,70 +1,69 @@
-name: CI/CD Pipeline for Amrinaas Web Portfolio
-  
-on:  
-  push:  
-    branches:  
-      - main  
-  pull_request:  
-    branches:  
-      - main  
-  
-jobs:  
-  build:  
-    runs-on: ubuntu-latest  
-  
-    steps:  
-    - name: Get latest code  
-      uses: actions/checkout@v3  
-  
-    - name: Set up Node.js  
-      uses: actions/setup-node@v3  
-      with:  
-        node-version: '18'  
-  
-    - name: Install dependencies  
-      run: yarn install  
-  
-    - name: Run tests  
-      run: npm test -- --watchAll=false --passWithNoTests 
-  
-    - name: Build the app  
-      run: yarn build  
-  
-    - name: Upload build artifact  
-      uses: actions/upload-artifact@v4
-      with:  
-        name: build  
-        path: build  
-  
-  deploy:  
-    needs: build  
-    runs-on: ubuntu-latest  
-    if: github.ref == 'refs/heads/main'  
-  
-    steps:  
-    - name: Checkout code  
-      uses: actions/checkout@v3  
-  
-    - name: Set up Node.js  
-      uses: actions/setup-node@v3  
-      with:  
-        node-version: '18'  
-  
-    - name: Install dependencies  
-      run: yarn install  
-  
-    - name: Build the app  
-      run: yarn build  
-  
-    - name: Deploy to FTP  
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:  
-          server: ${{ secrets.FTP_SERVER }}  
-          username: ${{ secrets.FTP_USERNAME }}  
-          password: ${{ secrets.FTP_PASSWORD }}  
+name: CI/CD Pipeline for Foodie App
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run tests
+        run: npm test -- --watchAll=false --passWithNoTests
+
+      - name: Build the app
+        run: yarn build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build the app
+        run: yarn build
+
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           protocol: ftp
-          local-dir: ./  
-          server-dir: /foodieapp.itsamrinaas.my.id/
-          timeout: 300000 
-        
+          local-dir: ./
+          server-dir: ../../
+          timeout: 300000
