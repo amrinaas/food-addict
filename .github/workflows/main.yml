@@ -51,19 +51,20 @@ jobs:
         node-version: '18'  
   
     - name: Install dependencies  
-      run: npm install  
+      run: yarn install  
   
     - name: Build the app  
-      run: npm run build  
+      run: yarn build  
   
     - name: Deploy to FTP  
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:  
-        server: ${{ secrets.FTP_SERVER }}  
-        username: ${{ secrets.FTP_USERNAME }}  
-        password: ${{ secrets.FTP_PASSWORD }}  
-        port: 21 
-        protocol: ftp
-        local-dir: build/  
-        server-dir: /home/itsamrin/public_html/
+          server: ${{ secrets.FTP_SERVER }}  
+          username: ${{ secrets.FTP_USERNAME }}  
+          password: ${{ secrets.FTP_PASSWORD }}  
+          port: 21
+          protocol: ftp
+          local-dir: ./  
+          server-dir: /foodieapp.itsamrinaas.my.id/
+          timeout: 300000 
         
